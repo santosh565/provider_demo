@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:provider_demo/models/info.dart';
 
 void main() {
   runApp(const MyApp());
@@ -9,12 +11,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+    return ChangeNotifierProvider(
+      create: (context) => Info(),
+      child: MaterialApp(
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: const Page1(),
       ),
-      home: const Page1(),
     );
   }
 }
@@ -47,14 +52,21 @@ class Top extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    debugPrint('Top build');
+    final info = context.read<Info>();
     return Center(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          ElevatedButton(onPressed: () {}, child: const Text('Change values')),
           ElevatedButton(
               onPressed: () {
-                Navigator.push(context,
+                info.title = 'new tittle';
+                info.description = 'new description';
+              },
+              child: const Text('Change values')),
+          ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).push(
                     MaterialPageRoute(builder: (context) => const Page2()));
               },
               child: const Text('Next page')),
@@ -69,17 +81,19 @@ class Bottom extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    debugPrint('Bottom build');
+    final info = Provider.of<Info>(context);
     return Center(
       child: RichText(
-        text: const TextSpan(
-          style: TextStyle(color: Colors.black),
+        text: TextSpan(
+          style: const TextStyle(color: Colors.black),
           children: [
             TextSpan(
-              text: 'This is a :',
-              style: TextStyle(fontWeight: FontWeight.bold),
+              text: info.title,
+              style: const TextStyle(fontWeight: FontWeight.bold),
             ),
             TextSpan(
-              text: 'Description ',
+              text: info.description,
             ),
           ],
         ),
@@ -93,19 +107,20 @@ class Page2 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final info = Provider.of<Info>(context);
     return Scaffold(
       appBar: AppBar(),
       body: Center(
         child: RichText(
-          text: const TextSpan(
-            style: TextStyle(color: Colors.black),
+          text: TextSpan(
+            style: const TextStyle(color: Colors.black),
             children: [
               TextSpan(
-                text: 'This is a :',
-                style: TextStyle(fontWeight: FontWeight.bold),
+                text: info.title,
+                style: const TextStyle(fontWeight: FontWeight.bold),
               ),
               TextSpan(
-                text: 'Description ',
+                text: info.description,
               ),
             ],
           ),
