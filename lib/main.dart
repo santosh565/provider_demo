@@ -52,7 +52,12 @@ class Top extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           ElevatedButton(onPressed: () {}, child: const Text('Change values')),
-          ElevatedButton(onPressed: () {}, child: const Text('Next page')),
+          ElevatedButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const Page2()));
+              },
+              child: const Text('Next page')),
         ],
       ),
     );
@@ -88,6 +93,24 @@ class Page2 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      appBar: AppBar(),
+      body: Center(
+        child: RichText(
+          text: const TextSpan(
+            style: TextStyle(color: Colors.black),
+            children: [
+              TextSpan(
+                text: 'This is a :',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              TextSpan(
+                text: 'Description ',
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }
