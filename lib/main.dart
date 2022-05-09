@@ -65,11 +65,15 @@ class Top extends StatelessWidget {
               },
               child: const Text('Change values')),
           ElevatedButton(
-              onPressed: () {
-                Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => const Page2()));
-              },
-              child: const Text('Next page')),
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => const Page2(),
+                ),
+              );
+            },
+            child: const Text('Next page'),
+          ),
         ],
       ),
     );
