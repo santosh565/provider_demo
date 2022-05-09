@@ -28,8 +28,15 @@ class Page1 extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Page 1'),
       ),
-      body: const Center(
-        child: Text('Page 1'),
+      body: Column(
+        children: const [
+          Flexible(
+            child: Top(),
+          ),
+          Flexible(
+            child: Bottom(),
+          )
+        ],
       ),
     );
   }
@@ -40,7 +47,15 @@ class Top extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Center(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          ElevatedButton(onPressed: () {}, child: const Text('Change values')),
+          ElevatedButton(onPressed: () {}, child: const Text('Next page')),
+        ],
+      ),
+    );
   }
 }
 
@@ -49,7 +64,22 @@ class Bottom extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Center(
+      child: RichText(
+        text: const TextSpan(
+          style: TextStyle(color: Colors.black),
+          children: [
+            TextSpan(
+              text: 'This is a :',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            TextSpan(
+              text: 'Description ',
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
 
