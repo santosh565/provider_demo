@@ -27,6 +27,23 @@ class Settings extends StatelessWidget {
                 }).toList(),
               ),
             ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              const Text('wax lines'),
+              Wrap(
+                children: [
+                  FilterChip(label: const Text('Swix'), onSelected: (value) {}),
+                  const SizedBox(width: 10),
+                  FilterChip(
+                    label: const Text('Toko'),
+                    onSelected: (value) {},
+                    selected: true,
+                  ),
+                ],
+              )
+            ],
           )
         ],
       ),
