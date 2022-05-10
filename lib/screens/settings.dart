@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../provider/settings_provider.dart';
 
 class Settings extends StatelessWidget {
   const Settings({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final settingsProvider = Provider.of<SettingsProvider>(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Settings'),
@@ -16,8 +20,10 @@ class Settings extends StatelessWidget {
             children: [
               const Text('units'),
               DropdownButton<String>(
-                value: 'Imperial',
-                onChanged: (value) {},
+                value: settingsProvider.units,
+                onChanged: (value) {
+                  settingsProvider.units = value!;
+                },
                 items: <String>['Imperial', 'Metric']
                     .map<DropdownMenuItem<String>>((String value) {
                   return DropdownMenuItem<String>(
