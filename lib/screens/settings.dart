@@ -8,7 +8,8 @@ class Settings extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final settingsProvider = Provider.of<SettingsProvider>(context);
+    debugPrint('settings build');
+    final settingsProvider = context.watch<SettingsProvider>();
     return Scaffold(
       appBar: AppBar(
         title: const Text('Settings'),
@@ -40,12 +41,28 @@ class Settings extends StatelessWidget {
               const Text('wax lines'),
               Wrap(
                 children: [
-                  FilterChip(label: const Text('Swix'), onSelected: (value) {}),
+                  FilterChip(
+                    label: const Text('Swix'),
+                    selected: (settingsProvider.waxLines.contains('Swix')),
+                    onSelected: (isSelected) {
+                      if (isSelected) {
+                        settingsProvider.addWaxLine('Swix');
+                      } else {
+                        settingsProvider.removeWaxLine('Swix');
+                      }
+                    },
+                  ),
                   const SizedBox(width: 10),
                   FilterChip(
                     label: const Text('Toko'),
-                    onSelected: (value) {},
-                    selected: true,
+                    selected: (settingsProvider.waxLines.contains('Toko')),
+                    onSelected: (isSelected) {
+                      if (isSelected) {
+                        settingsProvider.addWaxLine('Toko');
+                      } else {
+                        settingsProvider.removeWaxLine('Toko');
+                      }
+                    },
                   ),
                 ],
               )
