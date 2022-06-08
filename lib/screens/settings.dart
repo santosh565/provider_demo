@@ -8,8 +8,7 @@ class Settings extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    debugPrint('settings build');
-    final settingsProvider = context.watch<SettingsProvider>();
+    final settingsProvider = Provider.of<SettingsProvider>(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Settings'),
