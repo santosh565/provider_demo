@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:provider_demo/provider/settings_provider.dart';
 
 import '../models/report.dart';
 import '../services/firebase_service.dart';
@@ -10,7 +11,10 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var reports = Provider.of<List<Report>>(context);
+    final settings = Provider.of<SettingsProvider>(context);
+    var reports = Provider.of<List<Report>>(context)
+        .where((report) => settings.waxLines.contains(report.line))
+        .toList();
     final FireStoreService _db = FireStoreService();
 
     return Scaffold(
