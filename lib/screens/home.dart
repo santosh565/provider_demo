@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '../models/report.dart';
 import 'settings.dart';
 
 class Home extends StatelessWidget {
@@ -7,6 +9,7 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var reports = Provider.of<List<Report>>(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Wax app'),
@@ -23,7 +26,16 @@ class Home extends StatelessWidget {
               icon: const Icon(Icons.settings))
         ],
       ),
-      body: const Text('data'),
+      body: ListView.builder(
+          itemCount: reports.length,
+          itemBuilder: (context, index) {
+            final report = reports[index];
+            return ListTile(
+              title: Text(report.line),
+              subtitle: Text(report.wax),
+            );
+          },
+          ),
     );
   }
 }
