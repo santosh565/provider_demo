@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../models/report.dart';
+import '../services/firebase_service.dart';
 import 'settings.dart';
 
 class Home extends StatelessWidget {
@@ -10,6 +11,8 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var reports = Provider.of<List<Report>>(context);
+    final FireStoreService _db = FireStoreService();
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Wax app'),
@@ -32,10 +35,15 @@ class Home extends StatelessWidget {
         itemBuilder: (context, index) {
           final report = reports[index];
           return ListTile(
+            leading: Text(report.temp.toString()),
             title: Text(report.line),
             subtitle: Text(report.wax),
           );
         },
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: const Icon(Icons.add),
+        onPressed: () => _db.addReport(),
       ),
     );
   }

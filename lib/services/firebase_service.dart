@@ -10,7 +10,7 @@ class FireStoreService {
   Stream<List<Report>> getReports() {
     return _db
         .collection('reports')
-        .orderBy('timeStamp', descending: true)
+        .orderBy('temp', descending: true)
         .snapshots()
         .map((snapshot) =>
             snapshot.docs.map((doc) => Report.fromJson(doc.data())).toList());
